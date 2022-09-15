@@ -6,9 +6,7 @@ For this project you must have php 8+ installed and Laravel 9+, or you can just 
 
 run the database migrations with
 #
-```
-php artisan migrate
-```
+```php artisan migrate```
 #
 Create some fake users in the database with
 #
@@ -19,16 +17,12 @@ php artisan tinker
 #
 To install graphql you use
 #
-```
-composer require graphql
-```
+```composer require graphql```
 #
 But I have used with npm
 #
 
-```
-npm install graphql --save
-```
+```npm install graphql --save```
 #
 then you install nuwave/lighthouse package with
 #
@@ -40,19 +34,23 @@ To get the Ide
 #
 and the preview of lighthouse
 #
-```
-php artisan vendor:publish --tag=lighthouse-config
-```
+```php artisan vendor:publish --tag=lighthouse-config```
+#
 that`s not nedeed, but if you wanna get the basic of lighthouse you should read it
 #
 To have a interactive playground source install
-```
-composer require mll-lab/laravel-graphiql
-```
+```composer require mll-lab/laravel-graphiql```
+
+
 ######And have fun
 
 
-After you set you server up ```php artisan serve``` on ```localhost/graphql-playground``` test the commands
+After you set you server up 
+#
+```php artisan serve```
+on 
+```localhost/graphql-playground```
+test the commands
 
 Don`t forget to have the Type of Model used on schema.graphql, like ->
 ```
