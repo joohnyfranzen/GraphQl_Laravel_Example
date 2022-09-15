@@ -33,6 +33,7 @@ type Query {
 ```
 
 2. For get all users
+```
 {  
   users{
     name,
@@ -46,6 +47,9 @@ type Query {
     users: [User!]! @all,
 }
 
+```
+
+3. For paginate a query serach
 ```
 {
     users_paginate(first:2, page:3){
@@ -68,7 +72,7 @@ type Query {
 }
 ```
 
-For create a User
+4. For create a User
 ```
 mutation{
   createUser(
