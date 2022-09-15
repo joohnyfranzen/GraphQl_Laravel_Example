@@ -9,6 +9,15 @@ For this project you must have php 8+ installed and Laravel 9+, or you can just 
 
 After you set you server up "php artisan serve" on "localhost/graphql-playground" test the commands
 
+Don`t forget to have the Type of Model used on schema.graphql, like ->
+```
+type User {
+    id: ID
+    name: String
+    email: String
+}
+```
+
 1. For get one specific user
 ```
 {
@@ -17,7 +26,7 @@ After you set you server up "php artisan serve" on "localhost/graphql-playground
   }
 }
 ```
-On query
+On Schema
 ```
 type Query {
     user(id: ID @Eq): User @find
