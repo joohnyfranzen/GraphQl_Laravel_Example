@@ -28,6 +28,8 @@ then you install nuwave/lighthouse package with
 #
 ```composer require nuwave/lighthouse```
 #
+To get the Ide
+#
 ```php artisan lighthouse:ide-helper```
 #
 To get the Ide
