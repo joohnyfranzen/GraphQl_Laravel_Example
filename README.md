@@ -4,10 +4,16 @@ Hello again, my name is Jonathan and today I'm learning GraphQl
 
 For this project you must have php 8+ installed and Laravel 9+, or you can just install GraphQl in your project with the comands below...
 
+```npm install graphql --save```
+```php artisan lighthouse:ide-helper```
+For the Ide 
+```php artisan vendor:publish --tag=lighthouse-config```
+that`s not nedeed, but if you wanna get the basic of lighthouse you should read it
 
 
 
-After you set you server up "php artisan serve" on "localhost/graphql-playground" test the commands
+
+After you set you server up ```php artisan serve``` on ```localhost/graphql-playground``` test the commands
 
 Don`t forget to have the Type of Model used on schema.graphql, like ->
 ```
@@ -17,7 +23,7 @@ type User {
     email: String
 }
 ```
-
+#
 1. For get one specific user
 ```
 {
@@ -31,7 +37,7 @@ On Schema
 type Query {
     user(id: ID @Eq): User @find
 ```
-
+#
 2. For get all users
 ```
 {  
@@ -48,7 +54,7 @@ type Query {
 }
 
 ```
-
+#
 3. For paginate a query serach
 ```
 {
@@ -71,7 +77,7 @@ type Query {
     users_paginate: [User!]! @paginate
 }
 ```
-
+#
 4. For create a User
 ```
 mutation{
