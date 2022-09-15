@@ -32,8 +32,6 @@ To get the Ide
 #
 ```php artisan lighthouse:ide-helper```
 #
-To get the Ide
-#
 and the preview of lighthouse
 #
 ```php artisan vendor:publish --tag=lighthouse-config```
