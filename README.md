@@ -41,7 +41,7 @@ type Query {
   }
 }
 ```
-On
+On Schema
 ```
 type Query {
     users: [User!]! @all,
