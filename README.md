@@ -39,10 +39,10 @@ and the preview of lighthouse
 that`s not nedeed, but if you wanna get the basic of lighthouse you should read it
 #
 To have a interactive playground source install
-```composer require mll-lab/laravel-graphiql```
+```composer require mll-lab/laravel-graphql```
 
 
-######And have fun
+###### And have fun
 
 
 After you set you server up 
