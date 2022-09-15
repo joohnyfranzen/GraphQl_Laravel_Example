@@ -4,13 +4,52 @@ Hello again, my name is Jonathan and today I'm learning GraphQl
 
 For this project you must have php 8+ installed and Laravel 9+, or you can just install GraphQl in your project with the comands below...
 
-```npm install graphql --save```
+run the database migrations with
+#
+```
+php artisan migrate
+```
+#
+Create some fake users in the database with
+#
+```
+php artisan tinker
+\App\Models\User::factory(10)->create()
+```
+#
+To install graphql you use
+#
+```
+composer require graphql
+```
+#
+But I have used with npm
+#
+
+```
+npm install graphql --save
+```
+#
+then you install nuwave/lighthouse package with
+#
+```composer require nuwave/lighthouse```
+#
 ```php artisan lighthouse:ide-helper```
-For the Ide 
-```php artisan vendor:publish --tag=lighthouse-config```
+#
+To get the Ide
+#
+and the preview of lighthouse
+#
+```
+php artisan vendor:publish --tag=lighthouse-config
+```
 that`s not nedeed, but if you wanna get the basic of lighthouse you should read it
-
-
+#
+To have a interactive playground source install
+```
+composer require mll-lab/laravel-graphiql
+```
+######And have fun
 
 
 After you set you server up ```php artisan serve``` on ```localhost/graphql-playground``` test the commands
