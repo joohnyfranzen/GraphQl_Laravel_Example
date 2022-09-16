@@ -346,6 +346,44 @@ Try adding more posts with the factory using your user_id...
 #
 
 
+#### Validation @Rules
+
+On your Schema lets add some validation requirements for the createUser
+
+For email lets add that need to be provided and email, end it need to be unique
+
+```
+type Mutation {
+    createUser(
+        email: String! @rules(apply: ["email", "unique"])
+        ): User! @create
+}
+
+```
+
+And For password lets say it should have at least eight characters
+
+```
+type Mutation {
+    createUser(
+        password: String! @rules(apply: ["min:8"])
+        ): User! @create
+}
+```
+
+Now on playground try to create a new User out of that parameters, like these
+
+```
+mutation{
+  createUser(
+    name: "maik",
+    email: "maikom.com"
+    password: "maik"
+  ){
+    name
+  }
+}
+```
 Thats all for today
 #
 
