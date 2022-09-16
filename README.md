@@ -137,3 +137,110 @@ type Mutation {
         ): User! @create
 }
 ```
+#
+5. To update a User
+#
+```
+mutation{
+  updateUser(
+    id: 12,
+    name: "Maxini"
+  ){
+    name
+  }
+}
+```
+#
+On Schema
+#
+```
+type Mutation {
+    updateUser(
+        id: ID!,
+        name: String,
+        email: String,
+        password: String
+        ): User! @update
+}
+```
+#
+6. To delete a User
+#
+```
+mutation{
+	deleteUser(id:12){
+    name
+  }
+}
+```
+#
+On Schema
+#
+```
+type Mutation {
+    deleteUser(
+        id: ID!
+    ):User @delete
+}
+```
+#
+7. To overwrite an User
+#
+```
+mutation{
+	upsertUser(
+    id:12, 
+    name:"Josshny", 
+    email:"1234@gmail.com", 
+    password: "123556"){
+    name,
+    email,
+    id
+}
+```
+#
+On Schema
+#
+```
+type Mutation {
+    upsertUser(
+        id: ID!
+        name: String!
+        email:String!
+        password: String!
+    ): User! @upsert
+}
+```
+#
+For continue you need to add a Model, lets call it Post, -m to simplify it and made a migration
+#
+```php artisan make:model Post -m```
+#
+On Post migration add the fields title as string, content as text and user_id as foreign key just like these:
+#
+```
+$table->string('title');
+$table->string('content');         $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+```
+#
+Run php artisan migrate
+#
+Use the command to create PostFactory
+#
+```php artisan make:factory PostFactory -m Post```
+#
+In your PostFactory you will need to set the creation Model, just like you have set in your migration, it will be like:
+#
+```
+'title' => $this->faker->sentence(),
+'content' => $this->faker->paragraph(),
+'user_id' => function(){
+return User::factory()->create()->id;
+```
+#
+All right, almost forgot, you need to import user Model...
+#
+Now you can make use of your PostFactory with Tinker
+#
+Use Tinker and Post::factory(2)->count()->create() to generate fake posts
+#
