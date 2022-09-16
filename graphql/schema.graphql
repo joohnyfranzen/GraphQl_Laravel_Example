@@ -4,7 +4,8 @@ type Query {
     users_paginate: [User!]! @paginate
 
     posts: [Post!]! @all
-}
+    post(id: ID @eq): Post @find
+}   
 
 type Mutation {
     createUser(
