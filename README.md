@@ -246,3 +246,28 @@ Now you can make use of your PostFactory with Tinker
 php artisan tinker
 Post::factory()->count(2)->create()
 ```
+After created on ```localhost/graphql-playground```
+#
+Query for the posts
+#
+```
+{
+	posts{
+  	title,
+  	content,
+	}
+}
+```
+With Schema like
+```
+type Query {
+    posts: [Post!]! @all
+}
+
+type Post {
+    id: ID
+    title: String
+    content: String
+}
+```
+Thats all for today
