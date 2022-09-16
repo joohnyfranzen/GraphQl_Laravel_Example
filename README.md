@@ -242,5 +242,7 @@ All right, almost forgot, you need to import user Model...
 #
 Now you can make use of your PostFactory with Tinker
 #
-Use Tinker and Post::factory(2)->count()->create() to generate fake posts
-#
+```
+php artisan tinker
+Post::factory()->count(2)->create()
+```
