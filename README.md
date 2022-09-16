@@ -307,6 +307,43 @@ And in the graphql playground you can request to posts the author name, just lik
 #
 It should return the title with the name of who writed the post
 #
+Now we should try to get posts by user...
+In the User model create a relation function hasMany, like this.
+#
+```
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+```
+#
+On you GraphQl Schema you can rework you User by id to get that relationed posts
+#
+```
+type User {
+    posts: [Post]! @hasMany
+}
+
+```
+#
+Now in GraphQl playground type something like this, of course, with the user id and posts that have relation.
+#
+```
+{
+	user(id: 18){
+        name,
+        posts{
+            title
+        }
+	}
+}
+```
+#
+Try adding more posts with the factory using your user_id...
+#
+```php artisan serve tinker```
+```Post::factory()->count(5)->create(['user_id'=>10])```
+#
 
 
 Thats all for today
