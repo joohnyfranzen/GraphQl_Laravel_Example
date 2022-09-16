@@ -258,7 +258,9 @@ Query for the posts
 	}
 }
 ```
+#
 With Schema like
+#
 ```
 type Query {
     posts: [Post!]! @all
@@ -270,4 +272,43 @@ type Post {
     content: String
 }
 ```
+#
+If we want to get a Relation for post with the user who created it, in Post model you need to set the Relation between them.
+#
+```
+public function author()
+{
+    return $this->belongsTo(User::class, 'user_id');
+}
+```
+#
+The user_id field refers to what column should be used to return the information about relation...
+#
+Now on schema you should add a callback function to Query it
+#
+```
+type Post {
+    author: User @belongsTo
+}
+```
+#
+And in the graphql playground you can request to posts the author name, just like this
+#
+```
+{
+    posts{
+       title,
+       author{
+            name
+        }
+	}
+}
+```
+#
+It should return the title with the name of who writed the post
+#
+
+
 Thats all for today
+#
+
