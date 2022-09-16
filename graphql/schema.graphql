@@ -1,7 +1,9 @@
 type Query {
     user(id: ID @Eq): User @find
-    users: [User!]! @all,
+    users: [User!]! @all
     users_paginate: [User!]! @paginate
+
+    posts: [Post!]! @all
 }
 
 type Mutation {
@@ -30,10 +32,13 @@ type Mutation {
     ): User! @upsert
 }
 
-
-
 type User {
     id: ID
     name: String
     email: String
+}
+type Post {
+    id: ID
+    title: String
+    content: String
 }
