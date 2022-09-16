@@ -384,6 +384,30 @@ mutation{
   }
 }
 ```
+
+#### Schema Imports 
+
+For making a clean code thats a good way to separate your Query from schema...
+Inside your GraphQl folder create a file named user.graphql,
+now inside of it grab the Query for the user from schema and paste it on user.graphql
+```
+type Query {
+    user(id: ID @Eq): User @find
+    users: [User!]! @all
+    users_paginate: [User!]! @paginate
+}
+```
+
+To call it on your schema file you should import it with:
+```
+#import user.graphql
+```
+##### IMPORTANT TIP 
+To dont overwrite the information imported by the query you need to import in the bottom of the schema.graphql
+
+You can bring the Mutarion from user to that user.graphql file
+
+
 Thats all for today
 #
 
