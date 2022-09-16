@@ -1,8 +1,4 @@
 type Query {
-    user(id: ID @Eq): User @find
-    users: [User!]! @all
-    users_paginate: [User!]! @paginate
-
     posts: [Post!]! @all
     post(id: ID @eq): Post @find
 }   
@@ -45,3 +41,6 @@ type Post {
     content: String
     author: User @belongsTo
 }
+
+
+#import user.graphql

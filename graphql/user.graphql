@@ -1,0 +1,5 @@
+type Query {
+    user(id: ID @Eq): User @find
+    users: [User!]! @all
+    users_paginate: [User!]! @paginate
+}
