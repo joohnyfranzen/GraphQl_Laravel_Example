@@ -405,7 +405,26 @@ To call it on your schema file you should import it with:
 ##### IMPORTANT TIP 
 To dont overwrite the information imported by the query you need to import in the bottom of the schema.graphql
 
-You can bring the Mutarion from user to that user.graphql file
+You can bring the Mutation and Tyoe for user to that user.graphql file
+
+The same aplies to Post, before type query in you two new files aply extended, and the problem of rewriting is gone...
+```
+extends type Query
+```
+
+#### Autentication
+
+In your graphql folder create a new schema called auth.graphql, import it in the schema
+
+in your terminal create a mutation for Login with the comand
+```
+php artisan lighthouse:mutation Login
+```
+In can find your created file at App/GraphQL/Mutations/Login
+Inside of it we gonna use auth sanctum that is provided in the laravel sanctum autentication
+The function gonna be like this
+
+ 
 
 
 Thats all for today
