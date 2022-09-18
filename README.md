@@ -476,6 +476,36 @@ mutation{
 }
 ```
 
+#### Get Auth Information
+
+Now that we have our token we can provide to the request for getting something hidden for another user...
+Lets start with a simple command that give us the name and email of our user...
+
+In your auth.graphql create a Query called me calling the User, then give the @auth and @guard to become protected information...
+```
+extend type Query {
+    me: User! @guard @auth
+}
+```
+Now on your bottom playground open HTTP HEADERS and provide your bearer token...
+```
+{
+  "Authorization" :"Bearer 6|9hvZoE739dLqapM3uCe6ff5LFOaSEnvjroEU7Ffh"
+}
+```
+
+Try it, and you will se that some changes must to be done... haha
+
+same issue as here...
+
+On your lighthouse.php Http/middleware, inside of it add:
+```
+\Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+```
+Now, down there, in guard, change the api, for sanctum, then try again to see that still something wrong... Sorry bad habit...
+
+On verifyCsrfToken on the same config folder, inside protected add '/graphql'...
+Now it should work correctly...
  
 
 
