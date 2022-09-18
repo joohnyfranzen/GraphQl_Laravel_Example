@@ -405,7 +405,78 @@ To call it on your schema file you should import it with:
 ##### IMPORTANT TIP 
 To dont overwrite the information imported by the query you need to import in the bottom of the schema.graphql
 
-You can bring the Mutarion from user to that user.graphql file
+You can bring the Mutation and Tyoe for user to that user.graphql file
+
+The same aplies to Post, before type query in you two new files aply extended, and the problem of rewriting is gone...
+```
+extends type Query
+```
+
+#### Autentication
+
+In your graphql folder create a new schema called auth.graphql, import it in the schema
+
+in your terminal create a mutation for Login with the comand
+```
+php artisan lighthouse:mutation Login
+```
+You can find your created file at App/GraphQL/Mutations/Login
+Inside of it we are gonna use auth sanctum that is provided in the laravel sanctum autentication
+The function gonna be like this
+```
+        $user = User::where('email', $args['email'])->first();
+
+        if(! $user || ! Hash::check($args['password'], $user->password)) {
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentils are incorrect.'],
+            ]);
+        }
+        return $user->createToken($args['device'])->plainTextToken;
+```
+
+#
+Some troubles happens with the authentication method for getting the token, and after a few hours debuggin and googling, I find the problem that crashed autentication...
+
+#### The query for create a new user on user.graphql havent been hashed, and I tried to get a hashed password, so...
+
+For resolve this issue in type Mutation for createUser, you need to add @hash in the end of password, just like, this...
+```
+type Mutation {
+    createUser(
+        name: String!
+        email: String! @rules(apply: ["email", "unique:users"])
+        password: String! @rules(apply: ["min:8"]) @hash
+        ): User! @create
+```
+#
+Now you can create a new password and it gonna be hashed...
+
+In your auth.graphql, add a Mutation named login, with email, password and device, yes, device, long explanation.
+
+```
+extend type Mutation{
+    login(
+        email: String!, 
+        password: String!
+        device: String!
+    ): String!
+}
+```
+
+By the way, I have created a normal controller for Test and Debugg, because the return of Graphql dont accept some terms, and I did not find a reasonable solution to fix it...
+...
+Now, on your playground call for your email, password, and set device as web, like this...
+```
+mutation{
+  login(
+    email: "joohnyfffffff@gmail.com",
+    password: "12345678",
+    device:"web"
+  )
+}
+```
+
+ 
 
 
 Thats all for today
