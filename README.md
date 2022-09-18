@@ -420,9 +420,61 @@ in your terminal create a mutation for Login with the comand
 ```
 php artisan lighthouse:mutation Login
 ```
-In can find your created file at App/GraphQL/Mutations/Login
-Inside of it we gonna use auth sanctum that is provided in the laravel sanctum autentication
+You can find your created file at App/GraphQL/Mutations/Login
+Inside of it we are gonna use auth sanctum that is provided in the laravel sanctum autentication
 The function gonna be like this
+```
+        $user = User::where('email', $args['email'])->first();
+
+        if(! $user || ! Hash::check($args['password'], $user->password)) {
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentils are incorrect.'],
+            ]);
+        }
+        return $user->createToken($args['device'])->plainTextToken;
+```
+
+#
+Some troubles happens with the authentication method for getting the token, and after a few hours debuggin and googling, I find the problem that crashed autentication...
+
+#### The query for create a new user on user.graphql havent been hashed, and I tried to get a hashed password, so...
+
+For resolve this issue in type Mutation for createUser, you need to add @hash in the end of password, just like, this...
+```
+type Mutation {
+    createUser(
+        name: String!
+        email: String! @rules(apply: ["email", "unique:users"])
+        password: String! @rules(apply: ["min:8"]) @hash
+        ): User! @create
+```
+#
+Now you can create a new password and it gonna be hashed...
+
+In your auth.graphql, add a Mutation named login, with email, password and device, yes, device, long explanation.
+
+```
+extend type Mutation{
+    login(
+        email: String!, 
+        password: String!
+        device: String!
+    ): String!
+}
+```
+
+By the way, I have created a normal controller for Test and Debugg, because the return of Graphql dont accept some terms, and I did not find a reasonable solution to fix it...
+...
+Now, on your playground call for your email, password, and set device as web, like this...
+```
+mutation{
+  login(
+    email: "joohnyfffffff@gmail.com",
+    password: "12345678",
+    device:"web"
+  )
+}
+```
 
  
 
