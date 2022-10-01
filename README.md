@@ -1,7 +1,7 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 
-<p align="center"><a href="https://graphql.org/" target="_blank"><img src="https://res.cloudinary.com/codersociety/image/fetch/w_1200,h_900,c_fill/https://cdn.codersociety.com/uploads/graphql-reasons.png" width="400" alt="GraphQl Logo"></a></p>
+<p align="center"><a href="https://graphql.org/" target="_blank"><img src="https://w7.pngwing.com/pngs/47/318/png-transparent-graphql-playground-macos-bigsur-icon.png" width="400" alt="GraphQl Logo"></a></p>
 
 
 Hello again, my name is Jonathan and today I'm learning GraphQl
