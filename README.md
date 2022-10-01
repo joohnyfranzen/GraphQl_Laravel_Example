@@ -3,37 +3,33 @@
 Hello again, my name is Jonathan and today I'm learning GraphQl
 
 For this project you must have php 8+ installed and Laravel 9+, or you can just install GraphQl in your project with the comands below...
-
-run the database migrations with
 #
+run the database migrations with
+
 ```php artisan migrate```
 #
 Create some fake users in the database with
-#
+
 ```
 php artisan tinker
 \App\Models\User::factory(10)->create()
 ```
 #
 To install graphql you use
-#
+
 ```composer require graphql```
 #
 But I have used with npm
-#
 
 ```npm install graphql --save```
 #
 then you install nuwave/lighthouse package with
-#
 ```composer require nuwave/lighthouse```
 #
 To get the Ide
-#
 ```php artisan lighthouse:ide-helper```
 #
 and the preview of lighthouse
-#
 ```php artisan vendor:publish --tag=lighthouse-config```
 #
 that`s not nedeed, but if you wanna get the basic of lighthouse you should read it
@@ -42,11 +38,10 @@ To have a interactive playground source install
 ```composer require mll-lab/laravel-graphql```
 
 
-###### And have fun
+##### And have fun
 
 
 After you set you server up 
-#
 ```php artisan serve```
 on 
 ```localhost/graphql-playground```
@@ -139,7 +134,6 @@ type Mutation {
 ```
 #
 5. To update a User
-#
 ```
 mutation{
   updateUser(
@@ -150,9 +144,7 @@ mutation{
   }
 }
 ```
-#
 On Schema
-#
 ```
 type Mutation {
     updateUser(
@@ -165,7 +157,6 @@ type Mutation {
 ```
 #
 6. To delete a User
-#
 ```
 mutation{
 	deleteUser(id:12){
@@ -173,9 +164,7 @@ mutation{
   }
 }
 ```
-#
 On Schema
-#
 ```
 type Mutation {
     deleteUser(
@@ -185,7 +174,6 @@ type Mutation {
 ```
 #
 7. To overwrite an User
-#
 ```
 mutation{
 	upsertUser(
@@ -198,9 +186,7 @@ mutation{
     id
 }
 ```
-#
 On Schema
-#
 ```
 type Mutation {
     upsertUser(
@@ -213,11 +199,9 @@ type Mutation {
 ```
 #
 For continue you need to add a Model, lets call it Post, -m to simplify it and made a migration
-#
 ```php artisan make:model Post -m```
 #
 On Post migration add the fields title as string, content as text and user_id as foreign key just like these:
-#
 ```
 $table->string('title');
 $table->string('content');         $table->foreignId('user_id')->constrained()->cascadeOnDelete();
@@ -225,12 +209,10 @@ $table->string('content');         $table->foreignId('user_id')->constrained()->
 #
 Run php artisan migrate
 #
-Use the command to create PostFactory
-#
+Then use the command to create PostFactory
 ```php artisan make:factory PostFactory -m Post```
 #
 In your PostFactory you will need to set the creation Model, just like you have set in your migration, it will be like:
-#
 ```
 'title' => $this->faker->sentence(),
 'content' => $this->faker->paragraph(),
@@ -239,17 +221,13 @@ return User::factory()->create()->id;
 ```
 #
 All right, almost forgot, you need to import user Model...
-#
 Now you can make use of your PostFactory with Tinker
-#
 ```
 php artisan tinker
 Post::factory()->count(2)->create()
 ```
 After created on ```localhost/graphql-playground```
-#
 Query for the posts
-#
 ```
 {
 	posts{
@@ -258,9 +236,7 @@ Query for the posts
 	}
 }
 ```
-#
 With Schema like
-#
 ```
 type Query {
     posts: [Post!]! @all
@@ -274,18 +250,15 @@ type Post {
 ```
 #
 If we want to get a Relation for post with the user who created it, in Post model you need to set the Relation between them.
-#
 ```
 public function author()
 {
     return $this->belongsTo(User::class, 'user_id');
 }
 ```
-#
 The user_id field refers to what column should be used to return the information about relation...
 #
 Now on schema you should add a callback function to Query it
-#
 ```
 type Post {
     author: User @belongsTo
@@ -293,7 +266,6 @@ type Post {
 ```
 #
 And in the graphql playground you can request to posts the author name, just like this
-#
 ```
 {
     posts{
@@ -309,7 +281,6 @@ It should return the title with the name of who writed the post
 #
 Now we should try to get posts by user...
 In the User model create a relation function hasMany, like this.
-#
 ```
     public function author()
     {
@@ -317,8 +288,7 @@ In the User model create a relation function hasMany, like this.
     }
 ```
 #
-On you GraphQl Schema you can rework you User by id to get that relationed posts
-#
+On you GraphQl Schema you can rework your User by id to get that relationed posts
 ```
 type User {
     posts: [Post]! @hasMany
@@ -327,7 +297,6 @@ type User {
 ```
 #
 Now in GraphQl playground type something like this, of course, with the user id and posts that have relation.
-#
 ```
 {
 	user(id: 18){
@@ -340,7 +309,6 @@ Now in GraphQl playground type something like this, of course, with the user id 
 ```
 #
 Try adding more posts with the factory using your user_id...
-#
 ```php artisan serve tinker```
 ```Post::factory()->count(5)->create(['user_id'=>10])```
 #
@@ -350,7 +318,7 @@ Try adding more posts with the factory using your user_id...
 
 On your Schema lets add some validation requirements for the createUser
 
-For email lets add that need to be provided and email, end it need to be unique
+For email lets add that it should to be provided and email, and it need to be unique
 
 ```
 type Mutation {
@@ -389,7 +357,7 @@ mutation{
 
 For making a clean code thats a good way to separate your Query from schema...
 Inside your GraphQl folder create a file named user.graphql,
-now inside of it grab the Query for the user from schema and paste it on user.graphql
+Now inside of it grab the Query for the user from schema and paste it on user.graphql
 ```
 type Query {
     user(id: ID @Eq): User @find
@@ -407,7 +375,7 @@ To dont overwrite the information imported by the query you need to import in th
 
 You can bring the Mutation and Tyoe for user to that user.graphql file
 
-The same aplies to Post, before type query in you two new files aply extended, and the problem of rewriting is gone...
+The same aplies to Post, before type query in your two new files apply extended, and the problem of rewriting is gone...
 ```
 extends type Query
 ```
@@ -416,7 +384,7 @@ extends type Query
 
 In your graphql folder create a new schema called auth.graphql, import it in the schema
 
-in your terminal create a mutation for Login with the comand
+in your terminal create a mutation for Login with the command
 ```
 php artisan lighthouse:mutation Login
 ```
@@ -449,7 +417,7 @@ type Mutation {
         ): User! @create
 ```
 #
-Now you can create a new password and it gonna be hashed...
+Now you can create a new password and its gonna be hashed...
 
 In your auth.graphql, add a Mutation named login, with email, password and device, yes, device, long explanation.
 
