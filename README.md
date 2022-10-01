@@ -1,5 +1,9 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
+
+<p align="center"><a href="https://graphql.org/" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAeQ-LU5-InKyXv2TjMy-NPIEayZJQzQGMEZ3psjO_N9037HMepgT_zR_qUgTjNkLkCK8&usqp=CAU" width="400" alt="GraphQl Logo"></a></p>
+
+
 Hello again, my name is Jonathan and today I'm learning GraphQl
 
 For this project you must have php 8+ installed and Laravel 9+, or you can just install GraphQl in your project with the comands below...
